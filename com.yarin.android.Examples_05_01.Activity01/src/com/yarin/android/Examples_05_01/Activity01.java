@@ -27,12 +27,13 @@ public class Activity01 extends Activity {
 		// 开启线程
 		new Thread(new GameThread()).start();
 	}
-
+    // the message handler, by Tom Xue
 	Handler myHandler = new Handler() {
 		// 接收到消息后处理
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case Activity01.REFRESH:
+                // will be called at some point in the future, by Tom Xue
 				mGameView.invalidate();
 				break;
 			}
@@ -44,6 +45,10 @@ public class Activity01 extends Activity {
 		public void run() {
 			while (!Thread.currentThread().isInterrupted()) {
 				Message message = new Message();
+				// User-defined message code so that the recipient can identify
+				// what this message is about. Each Handler has its own
+				// name-space for message codes, so you do not need to worry
+				// about yours conflicting with other handlers.
 				message.what = Activity01.REFRESH;
 				// 发送消息
 				Activity01.this.myHandler.sendMessage(message);
